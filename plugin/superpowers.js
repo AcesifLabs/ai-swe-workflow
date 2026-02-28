@@ -1,0 +1,1 @@
+/home/asif/.config/opencode/superpowers/.opencode/plugin/superpowers.js

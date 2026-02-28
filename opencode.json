@@ -1,0 +1,264 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "sequentialthinking": {
+      "type": "remote",
+      "url": "https://remote.mcpservers.org/sequentialthinking/mcp"
+    }
+  },
+  "plugin": [
+    "opencode-antigravity-auth@latest"
+  ],
+  "instructions": [
+    "/home/asif/.config/opencode/instructions/plan.md",
+    "/home/asif/.config/opencode/instructions/code-review.md"
+  ],
+  "mode": {
+    "plan": {
+      "prompt": "{file:/home/asif/.config/opencode/instructions/plan.md}",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": true
+      }
+    },
+    "review": {
+      "prompt": "{file:/home/asif/.config/opencode/instructions/code-review.md}",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "write": false
+      }
+    }
+  },
+  "provider": {
+    "google": {
+      "models": {
+        "antigravity-claude-opus-4-5-thinking": {
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Claude Opus 4.5 Thinking (Antigravity)",
+          "variants": {
+            "low": {
+              "thinkingConfig": {
+                "thinkingBudget": 8192
+              }
+            },
+            "max": {
+              "thinkingConfig": {
+                "thinkingBudget": 32768
+              }
+            }
+          }
+        },
+        "antigravity-claude-sonnet-4-5": {
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Claude Sonnet 4.5 (Antigravity)"
+        },
+        "antigravity-claude-sonnet-4-5-thinking": {
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Claude Sonnet 4.5 Thinking (Antigravity)",
+          "variants": {
+            "low": {
+              "thinkingConfig": {
+                "thinkingBudget": 8192
+              }
+            },
+            "max": {
+              "thinkingConfig": {
+                "thinkingBudget": 32768
+              }
+            }
+          }
+        },
+        "antigravity-gemini-3-flash": {
+          "limit": {
+            "context": 1048576,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Gemini 3 Flash (Antigravity)",
+          "variants": {
+            "high": {
+              "thinkingLevel": "high"
+            },
+            "low": {
+              "thinkingLevel": "low"
+            },
+            "medium": {
+              "thinkingLevel": "medium"
+            },
+            "minimal": {
+              "thinkingLevel": "minimal"
+            }
+          }
+        },
+        "antigravity-gemini-3-pro": {
+          "limit": {
+            "context": 1048576,
+            "output": 65535
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Gemini 3 Pro (Antigravity)",
+          "variants": {
+            "high": {
+              "thinkingLevel": "high"
+            },
+            "low": {
+              "thinkingLevel": "low"
+            }
+          }
+        },
+        "gemini-2.5-flash": {
+          "limit": {
+            "context": 1048576,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Gemini 2.5 Flash (Gemini CLI)"
+        },
+        "gemini-2.5-pro": {
+          "limit": {
+            "context": 1048576,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Gemini 2.5 Pro (Gemini CLI)"
+        },
+        "gemini-3-flash-preview": {
+          "limit": {
+            "context": 1048576,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Gemini 3 Flash Preview (Gemini CLI)"
+        },
+        "gemini-3-pro-preview": {
+          "limit": {
+            "context": 1048576,
+            "output": 65535
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Gemini 3 Pro Preview (Gemini CLI)"
+        }
+      }
+    },
+    "ollama": {
+      "models": {
+        "glm-4.6:cloud": {
+          "_launch": true,
+          "name": "glm-4.6:cloud"
+        },
+        "glm-4.7:cloud": {
+          "_launch": true,
+          "name": "glm-4.7:cloud"
+        },
+        "minimax-m2.5:cloud": {
+          "_launch": true,
+          "name": "minimax-m2.5:cloud"
+        },
+        "qwen3-coder:latest": {
+          "_launch": true,
+          "name": "qwen3-coder:latest"
+        }
+      },
+      "name": "Ollama (local)",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://localhost:11434/v1"
+      }
+    }
+  }
+}
