@@ -31,6 +31,41 @@ Break down the task into smaller, actionable steps considering:
 - Dependencies and prerequisites
 - Potential risks or blockers
 
+Additionally, check the branch name that is currently checked out.
+
+The branch naming is in the following format:
+
+`{TASK_TYPE}/{PROJECT_TAG}-{ISSUE_NUMBER}-{DESCRIPTION}`
+
+- TASK_TYPE can be feat, fix, refactor
+- PROJECT_TAG can be KF, KDP, LS, ENS etc.
+- ISSUE_NUMBER is numeric.
+- DESCRIPTION is text.
+
+Example: 
+- feat/KF-102-new-feature-dummy
+- fix/LS-123-142-fix-broken-tests
+
+In case there are multiple issue numbers separated by dashes, they represent separate Issue Tickets such as `LS-123` and `LS-142`
+
+After extracting the PROJECT_TAG and ISSUE_NUMBER,
+run the following script by injecting the PROJECT_TAG and ISSUE_NUMBER and reading the output of:
+
+```
+jira issue view {PROJECT_TAG}-{ISSUE_NUMBER} --plain | awk '/Description ---/,/Linked Issues ---/ {
+    if ($0 !~ /---/) {
+        gsub(/^[[:space:]]+|[[:space:]]+$/, "");
+        if ($0 ~ /\**A\/C:\**/) {
+            print ""; 
+            gsub(/\**A\/C:\**/, "Acceptance Criteria:");
+        }
+        if (NF) print $0;
+    }
+}'
+```
+
+Read the Description and the Acceptance and incorporate the requirements into the plan.
+
 ## Step 4: Ask clarifying questions (if needed)
 
 Before generating tasks, conduct a thorough interview with the user to extract ALL requirements and constraints:

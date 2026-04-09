@@ -13,8 +13,9 @@
     "/home/asif/.config/opencode/instructions/plan.md",
     "/home/asif/.config/opencode/instructions/code-review.md"
   ],
-  "mode": {
+  "agent": {
     "plan": {
+      "description": "Generate execution plan and task files",
       "prompt": "{file:/home/asif/.config/opencode/instructions/plan.md}",
       "tools": {
         "write": false,
@@ -23,215 +24,155 @@
       }
     },
     "review": {
+      "description": "Review code for convention violations and issues",
       "prompt": "{file:/home/asif/.config/opencode/instructions/code-review.md}",
       "tools": {
         "read": true,
         "grep": true,
         "write": false
       }
+    },
+    "brainstorm": {
+      "description": "Refine requirements and design with superpowers",
+      "prompt": "{file:/home/asif/.config/opencode/superpowers/commands/brainstorm.md}",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "bash": true,
+        "write": true,
+        "edit": true
+      }
+    },
+    "write-plan": {
+      "description": "Create detailed superpowers implementation plan",
+      "prompt": "{file:/home/asif/.config/opencode/superpowers/commands/write-plan.md}",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "write": true,
+        "edit": true
+      }
+    },
+    "execute-plan": {
+      "description": "Batch execute plans with checkpoints",
+      "prompt": "{file:/home/asif/.config/opencode/superpowers/commands/execute-plan.md}",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "bash": true,
+        "write": true,
+        "edit": true
+      }
+    },
+    "debug": {
+      "description": "Perform systematic root cause analysis",
+      "prompt": "{file:/home/asif/.config/opencode/instructions/debug.md}",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "bash": true,
+        "edit": true
+      }
+    },
+    "tdd": {
+      "description": "Follow Red-Green-Refactor workflow",
+      "prompt": "{file:/home/asif/.config/opencode/instructions/tdd.md}",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "bash": true,
+        "write": true,
+        "edit": true
+      }
     }
+  },
+  "command": {
+    "brainstorm": { "template": "brainstorm", "agent": "brainstorm" },
+    "write-plan": { "template": "write-plan", "agent": "write-plan" },
+    "execute-plan": { "template": "execute-plan", "agent": "execute-plan" },
+    "debug": { "template": "debug", "agent": "debug" },
+    "tdd": { "template": "tdd", "agent": "tdd" }
   },
   "provider": {
     "google": {
       "models": {
-        "antigravity-claude-opus-4-5-thinking": {
-          "limit": {
-            "context": 200000,
-            "output": 64000
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          },
-          "name": "Claude Opus 4.5 Thinking (Antigravity)",
+        "antigravity-gemini-3-pro": {
+          "name": "Gemini 3 Pro (Antigravity)",
+          "limit": { "context": 1048576, "output": 65535 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
           "variants": {
-            "low": {
-              "thinkingConfig": {
-                "thinkingBudget": 8192
-              }
-            },
-            "max": {
-              "thinkingConfig": {
-                "thinkingBudget": 32768
-              }
-            }
+            "low": { "thinkingLevel": "low" },
+            "high": { "thinkingLevel": "high" }
           }
         },
-        "antigravity-claude-sonnet-4-5": {
-          "limit": {
-            "context": 200000,
-            "output": 64000
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          },
-          "name": "Claude Sonnet 4.5 (Antigravity)"
-        },
-        "antigravity-claude-sonnet-4-5-thinking": {
-          "limit": {
-            "context": 200000,
-            "output": 64000
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          },
-          "name": "Claude Sonnet 4.5 Thinking (Antigravity)",
+        "antigravity-gemini-3.1-pro": {
+          "name": "Gemini 3.1 Pro (Antigravity)",
+          "limit": { "context": 1048576, "output": 65535 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
           "variants": {
-            "low": {
-              "thinkingConfig": {
-                "thinkingBudget": 8192
-              }
-            },
-            "max": {
-              "thinkingConfig": {
-                "thinkingBudget": 32768
-              }
-            }
+            "low": { "thinkingLevel": "low" },
+            "high": { "thinkingLevel": "high" }
           }
         },
         "antigravity-gemini-3-flash": {
-          "limit": {
-            "context": 1048576,
-            "output": 65536
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          },
           "name": "Gemini 3 Flash (Antigravity)",
+          "limit": { "context": 1048576, "output": 65536 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
           "variants": {
-            "high": {
-              "thinkingLevel": "high"
-            },
-            "low": {
-              "thinkingLevel": "low"
-            },
-            "medium": {
-              "thinkingLevel": "medium"
-            },
-            "minimal": {
-              "thinkingLevel": "minimal"
-            }
+            "minimal": { "thinkingLevel": "minimal" },
+            "low": { "thinkingLevel": "low" },
+            "medium": { "thinkingLevel": "medium" },
+            "high": { "thinkingLevel": "high" }
           }
         },
-        "antigravity-gemini-3-pro": {
-          "limit": {
-            "context": 1048576,
-            "output": 65535
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          },
-          "name": "Gemini 3 Pro (Antigravity)",
+        "antigravity-claude-sonnet-4-6": {
+          "name": "Claude Sonnet 4.6 (Antigravity)",
+          "limit": { "context": 200000, "output": 64000 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
+        },
+        "antigravity-claude-opus-4-6-thinking": {
+          "name": "Claude Opus 4.6 Thinking (Antigravity)",
+          "limit": { "context": 200000, "output": 64000 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
           "variants": {
-            "high": {
-              "thinkingLevel": "high"
-            },
-            "low": {
-              "thinkingLevel": "low"
-            }
+            "low": { "thinkingConfig": { "thinkingBudget": 8192 } },
+            "max": { "thinkingConfig": { "thinkingBudget": 32768 } }
           }
         },
         "gemini-2.5-flash": {
-          "limit": {
-            "context": 1048576,
-            "output": 65536
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          },
-          "name": "Gemini 2.5 Flash (Gemini CLI)"
+          "name": "Gemini 2.5 Flash (Gemini CLI)",
+          "limit": { "context": 1048576, "output": 65536 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
         },
         "gemini-2.5-pro": {
-          "limit": {
-            "context": 1048576,
-            "output": 65536
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          },
-          "name": "Gemini 2.5 Pro (Gemini CLI)"
+          "name": "Gemini 2.5 Pro (Gemini CLI)",
+          "limit": { "context": 1048576, "output": 65536 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
         },
         "gemini-3-flash-preview": {
-          "limit": {
-            "context": 1048576,
-            "output": 65536
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          },
-          "name": "Gemini 3 Flash Preview (Gemini CLI)"
+          "name": "Gemini 3 Flash Preview (Gemini CLI)",
+          "limit": { "context": 1048576, "output": 65536 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
         },
         "gemini-3-pro-preview": {
-          "limit": {
-            "context": 1048576,
-            "output": 65535
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          },
-          "name": "Gemini 3 Pro Preview (Gemini CLI)"
+          "name": "Gemini 3 Pro Preview (Gemini CLI)",
+          "limit": { "context": 1048576, "output": 65535 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
+        },
+        "gemini-3.1-pro-preview": {
+          "name": "Gemini 3.1 Pro Preview (Gemini CLI)",
+          "limit": { "context": 1048576, "output": 65535 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
+        },
+        "gemini-3.1-pro-preview-customtools": {
+          "name": "Gemini 3.1 Pro Preview Custom Tools (Gemini CLI)",
+          "limit": { "context": 1048576, "output": 65535 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
         }
       }
     },
