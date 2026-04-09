@@ -218,5 +218,3 @@ To ensure everything is set up correctly, run the following verification steps:
    Ask: "which agents are configured?"
 
 ---
-
-*End of file - total 206 lines*
